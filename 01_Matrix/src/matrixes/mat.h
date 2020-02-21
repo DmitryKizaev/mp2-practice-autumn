@@ -49,7 +49,7 @@ mat<T>::mat(int _dim) : vect<vect<T> > (_dim)
 }
 
 template<typename T>
-mat<T>::mat(const mat<T>& m) : vect<vect<T> >(m)  // çî÷åì
+mat<T>::mat(const mat<T>& m) : vect<vect<T> >(m)
 {}
 
 template<typename T>
