@@ -8,7 +8,7 @@ class mat : public vect<vect<T> >
 public:
     mat(int _dim = 10);
     mat(const mat& m);
-    mat(const vect<vect<T> >& v);  // ĞÀÇÎÁĞÀÒü
+    mat(const vect<vect<T> >& v);
     ~mat();
 
     mat operator+ (const mat& m);
@@ -49,7 +49,7 @@ mat<T>::mat(int _dim) : vect<vect<T> > (_dim)
 }
 
 template<typename T>
-mat<T>::mat(const mat<T>& m) : vect<vect<T> >(m)  // çî÷åì
+mat<T>::mat(const mat<T>& m) : vect<vect<T> >(m)  // Ã§Ã®Ã·Ã¥Ã¬
 {}
 
 template<typename T>
@@ -83,7 +83,8 @@ mat<T> mat<T>::operator- (const mat<T>& m)
 }
 
 template<class T>
-mat<T> mat<T>::operator* (const mat<T>& m)  // Ğàçîáğàòü
+mat<T> mat<T>::operator* (const mat<T>& m)
+
 {
     if (this->dim != m.dim)
         throw "error: different dimensions";
