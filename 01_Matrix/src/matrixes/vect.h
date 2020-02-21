@@ -18,13 +18,13 @@ public:
     vect(const vect& v);
     ~vect();
 
-    vect operator+ (const vect& v); //const;
-    vect operator- (const vect& v); //const;
-    T operator* (const vect& v); //const;
+    vect operator+ (const vect& v);
+    vect operator- (const vect& v);
+    T operator* (const vect& v);
 
-    vect operator+ (const T t); // const;
-    vect operator- (const T t); // const;
-    vect operator* (const T t); // const;
+    vect operator+ (const T t);
+    vect operator- (const T t);
+    vect operator* (const T t);
 
     vect& operator= (const vect& v);
 
@@ -47,7 +47,7 @@ public:
         return in;
     }
 
-    friend ostream& operator<<(ostream& out, const vect<T>& v)  // –¿«Œ¡–¿“¸
+    friend ostream& operator<<(ostream& out, const vect<T>& v)
     {
         for (int i = 0; i < v.startindex; i++)
             out << setw(3) << setprecision(2) << right << " ";
