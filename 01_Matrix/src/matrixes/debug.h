@@ -1,13 +1,17 @@
 #pragma once
+#include <locale.h>
 #include "mat.h"
 
-void test1();
-void test2();
-void test3();
-void test4();
-void test5();
-void test6();
-void test7();
-void test8();
-void test9();
-void test10();
+
+
+void test1(); // сложение матриц
+void test2(); // вычитание матриц
+void test3(); // умножение матриц
+void test4(); // сложение с константой
+void test5(); // вычитание константы
+void test6(); // умножение на константу
+void test7(); // умножение на вектор
+void test8(); // проверка равенства
+void test9(); // проверка неравенства
+void test10(); // конструктор копирования
+
