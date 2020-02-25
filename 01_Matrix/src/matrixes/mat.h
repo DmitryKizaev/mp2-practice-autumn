@@ -84,14 +84,7 @@ mat<T> mat<T>::operator- (const mat<T>& m)
 
 template<class T>
 mat<T> mat<T>::operator* (const mat<T>& m)
-<<<<<<< Updated upstream
 
-=======
-<<<<<<< HEAD
-=======
-
->>>>>>> 65634bb4510f02c08ec0bb188c1c5f39479fa5b6
->>>>>>> Stashed changes
 {
     if (this->dim != m.dim)
         throw "error: different dimensions";
@@ -101,7 +94,7 @@ mat<T> mat<T>::operator* (const mat<T>& m)
         {
             tmp.coord[i][j - i] = 0.0;
             for (int k = i; k <= j; k++)
-                tmp.coord[i][j - i] = tmp.coord[i][j - i] + this->coord[i][k - i] * m.coord[k][j - k];
+                tmp.coord[i][j - i] += this->coord[i][k - i] * m.coord[k][j - k];
         }
     return tmp;
 }
