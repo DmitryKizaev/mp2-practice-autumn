@@ -104,7 +104,7 @@ double postfix::convert_const_v2(string symbols)
     }
     catch (const char* err_code)
     {
-        cout << err_code << " in push_sign f in calc_all " << endl;
+        cout << err_code << " in convert_const_v2: stoi error" << endl;
         return 0;
     }
 }
@@ -192,8 +192,8 @@ string postfix::convert_to_postfix(string s)
     if (!(check_correct(s)))
         throw "Error: incorrect line";
 
-    string tmp = "", var = ""; // tmp - âõîäíîé ýëåìåíò ñòðîêè â öèêëå, var - ïåðåìåííàÿ äî çíàêà
-    int j = 0; // ñ÷åò÷èê äëÿ ìàññèâà ïåðåìåííûõ
+    string tmp = "", var = ""; // tmp - Ã¢ÃµÃ®Ã¤Ã­Ã®Ã© Ã½Ã«Ã¥Ã¬Ã¥Ã­Ã² Ã±Ã²Ã°Ã®ÃªÃ¨ Ã¢ Ã¶Ã¨ÃªÃ«Ã¥, var - Ã¯Ã¥Ã°Ã¥Ã¬Ã¥Ã­Ã­Ã Ã¿ Ã¤Ã® Ã§Ã­Ã ÃªÃ 
+    int j = 0; // Ã±Ã·Ã¥Ã²Ã·Ã¨Ãª Ã¤Ã«Ã¿ Ã¬Ã Ã±Ã±Ã¨Ã¢Ã  Ã¯Ã¥Ã°Ã¥Ã¬Ã¥Ã­Ã­Ã»Ãµ
 
     stack<string> operators(50);
     stack<string> res_stack(50);
