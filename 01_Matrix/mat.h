@@ -20,7 +20,7 @@ public:
     mat operator* (const T t);
 
     vect<T> operator*(const vect<T>& v);
-   
+
     mat& operator=(const mat& m);
     bool operator== (const mat& m) const;
     bool operator!= (const mat& m) const;
@@ -37,8 +37,9 @@ public:
         for (int i = 0; i < m.dim; i++)
             out << m[i] << endl;
         return out;
-    }
+    }   
 };
+
 
 template<typename T>
 mat<T>::mat(int _dim) : vect<vect<T> > (_dim)
@@ -48,17 +49,21 @@ mat<T>::mat(int _dim) : vect<vect<T> > (_dim)
         this->coord[i] = vect<T>(this->dim - i, i);
 }
 
+
 template<typename T>
 mat<T>::mat(const mat<T>& m) : vect<vect<T> >(m)
 {}
+
 
 template<typename T>
 mat<T>::mat(const vect<vect<T> > &v) : vect<vect<T> >(v)
 {}
 
+
 template<typename T>
 mat<T>::~mat()
 {}
+
 
 template<typename T>
 mat<T> mat<T>::operator+ (const mat<T>& m)
@@ -71,6 +76,7 @@ mat<T> mat<T>::operator+ (const mat<T>& m)
     return tmp;
 }
 
+
 template<typename T>
 mat<T> mat<T>::operator- (const mat<T>& m)
 {
@@ -81,6 +87,7 @@ mat<T> mat<T>::operator- (const mat<T>& m)
         tmp.coord[i] = this->coord[i] - m.coord[i];
     return tmp;
 }
+
 
 template<class T>
 mat<T> mat<T>::operator* (const mat<T>& m)
@@ -115,6 +122,7 @@ vect<T> mat<T>::operator* (const vect<T>& v)
     return tmp;
 }
 
+
 template<typename T>
 mat<T> mat<T>::operator+ (const T t)
 {
@@ -123,6 +131,7 @@ mat<T> mat<T>::operator+ (const T t)
         tmp.coord[i] = this->coord[i] + t;
     return tmp;
 }
+
 
 template<typename T>
 mat<T> mat<T>::operator- (T t)
@@ -133,6 +142,7 @@ mat<T> mat<T>::operator- (T t)
     return tmp;
 }
 
+
 template<typename T>
 mat<T> mat<T>::operator* (T t)
 {
@@ -142,6 +152,7 @@ mat<T> mat<T>::operator* (T t)
     return tmp;
 }
 
+
 template<typename T>
 mat<T>& mat<T>::operator= (const mat<T>& m)
 {
@@ -150,9 +161,9 @@ mat<T>& mat<T>::operator= (const mat<T>& m)
 
     if (this->dim != m.dim)
     {
+        delete[] this->coord;
+        this->coord = new vect<T>[m.dim];
         this->dim = m.dim;
-        delete this->coord;
-        this->coord = new vect<T>[this->dim];
     }
     for (int i = 0; i < this->dim; i++)
     {
@@ -161,6 +172,7 @@ mat<T>& mat<T>::operator= (const mat<T>& m)
     }
     return *this;
 }
+
 
 template<typename T>
 bool mat<T>::operator== (const mat& m) const
@@ -172,6 +184,7 @@ bool mat<T>::operator== (const mat& m) const
             return false;
     return true;
 }
+
 
 template<typename T>
 bool mat<T>::operator!= (const mat<T>& m) const
