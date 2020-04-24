@@ -33,6 +33,7 @@ public:
     bool operator!= (const mat_f& m) const;
 
     void update_width();
+    T det();
 
     friend istream& operator>>(istream& in, mat_f<T>& m)
     {
@@ -226,6 +227,16 @@ void mat_f<T>::update_width()
             width = (*this)[i].get_width();
     }
     this->width = width;
+};
+
+template <typename T>
+T mat_f<T>::det()
+// Определитель треугольной матрицы равен произведению элементов на её главной диагонали
+{
+    T det = 1;
+    for (int i = 0; i < this->get_dim(); i++)
+        det *= this->coord[i][0];
+    return det;
 };
 
 // друж. функции
