@@ -8,7 +8,7 @@ using namespace std;
 const int DEFAULT_PRECISION = 2;  
 // precision: digits after "."
 
-const int DEFAULT_WIDTH = DEFAULT_PRECISION + 3;
+const int DEFAULT_WIDTH = DEFAULT_PRECISION + 2;
 // minimal number of digits to show (default value)
 // example: "0.253" : 3 precision digits (253) +2 digits ("0" and ".")
 

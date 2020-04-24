@@ -138,6 +138,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="extended_tests.h" />
     <ClInclude Include="mat.h" />
     <ClInclude Include="mat_f.h" />
     <ClInclude Include="vect.h" />

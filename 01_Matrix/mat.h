@@ -1,7 +1,6 @@
 #pragma once
 #include "vect.h"
 
-
 template<typename T>
 class mat : public vect<vect<T> >
 {

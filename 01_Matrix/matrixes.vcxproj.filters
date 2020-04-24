@@ -27,6 +27,9 @@
     <ClInclude Include="vect_f.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="extended_tests.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
