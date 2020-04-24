@@ -306,6 +306,18 @@ void extended_double()
 
     B = mat_f<double>(A);
     cout << endl << "this is B(A):" << endl << endl << B;
+
+    // определитель
+
+    cout << "test 11" << endl << "det A" << endl;
+    cout << "size A = ";
+    n = userproof_input();
+
+    A = mat_f<double>(n);
+    cout << "A = " << endl;
+    cin >> A;
+    cout << endl << "Check A:" << endl << endl << A << endl;
+    cout << endl << "det(A)=" << A.det() << endl << endl;
 }
 
 void extended_int()
@@ -594,4 +606,16 @@ void extended_int()
 
     B = mat_f<int>(A);
     cout << endl << "this is B(A):" << endl << endl << B;
+
+    // определитель
+
+    cout << "test 11" << endl << "det A" << endl;
+    cout << "size A = ";
+    n = userproof_input();
+
+    A = mat_f<int>(n);
+    cout << "A = " << endl;
+    cin >> A;
+    cout << endl << "Check A:" << endl << endl << A << endl;
+    cout << endl << "det(A)=" << A.det() << endl << endl;
 }
