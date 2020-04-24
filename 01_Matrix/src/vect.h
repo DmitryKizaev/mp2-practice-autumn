@@ -1,9 +1,20 @@
 #pragma once
 #include <iostream>
 #include <iomanip>
-#include <math.h>
+#include <string>
 
 using namespace std;
+
+const int DEFAULT_PRECISION = 2;  
+// precision: digits after "."
+
+const int DEFAULT_WIDTH = DEFAULT_PRECISION + 2;
+// minimal number of digits to show (default value)
+// example: "0.253" : 3 precision digits (253) +2 digits ("0" and ".")
+
+const int DEFAULT_SPACE = 2;  
+// number of spaces between columns
+
 
 template<typename T>
 class vect
@@ -50,17 +61,16 @@ public:
     friend ostream& operator<<(ostream& out, const vect<T>& v)
     {
         for (int i = 0; i < v.startindex; i++)
-            out << setw(3) << setprecision(2) << right << " ";
+            out << setw(DEFAULT_WIDTH + DEFAULT_SPACE) << right << fixed << " ";
         for (int i = 0; i < v.dim - 1; i++)
-            out << setw(3) << setprecision(2) << right << v.coord[i];
-        out << setw(3) << setprecision(2) << right << v.coord[v.dim - 1];
+            out << setw(DEFAULT_WIDTH + DEFAULT_SPACE) << setprecision(DEFAULT_PRECISION) << right << fixed << v.coord[i];
+        out << setw(DEFAULT_WIDTH + DEFAULT_SPACE) << setprecision(DEFAULT_PRECISION) << right << fixed <<  v.coord[v.dim - 1];
         return out;
-        out << setw(v.startindex);
     }
 };
 
 
-template<class T>
+template<typename T>
 vect<T>::vect(int _dim, int _startindex)
 {
     this->dim = _dim;
@@ -68,7 +78,8 @@ vect<T>::vect(int _dim, int _startindex)
     this->coord = new T[this->dim];
 }
 
-template<class T>
+
+template<typename T>
 vect<T>::vect(const vect<T>& v)
 {
     this->dim = v.dim;
@@ -78,14 +89,17 @@ vect<T>::vect(const vect<T>& v)
         this->coord[i] = v.coord[i];
 }
 
-template<class T>
-vect<T>::~vect()
+
+template<typename T>
+vect<T>::~vect() 
 {
     this->dim = 0;
+    this->startindex = 0;
     delete[] this->coord;
 }
 
-template<class T>
+
+template<typename T>
 vect<T> vect<T>::operator+ (const vect<T>& v)
 {
     if (this->startindex != v.startindex)
@@ -98,7 +112,8 @@ vect<T> vect<T>::operator+ (const vect<T>& v)
     return sum;
 }
 
-template<class T>
+
+template<typename T>
 vect<T> vect<T>::operator- (const vect<T>& v)
 {
     if (this->startindex != v.startindex)
@@ -111,7 +126,8 @@ vect<T> vect<T>::operator- (const vect<T>& v)
     return sum;
 }
 
-template<class T>
+
+template<typename T>
 T vect<T>::operator* (const vect<T>& v)
 {
     if (this->startindex != v.startindex)
@@ -124,7 +140,8 @@ T vect<T>::operator* (const vect<T>& v)
     return vect_scp;
 }
 
-template<class T>
+
+template<typename T>
 vect<T> vect<T>::operator+ (const T t)
 {
     vect<T> sum_c(*this);
@@ -133,7 +150,8 @@ vect<T> vect<T>::operator+ (const T t)
     return sum_c;
 }
 
-template<class T>
+
+template<typename T>
 vect<T> vect<T>::operator- (const T t)
 {
     vect<T> sum_c(*this);
@@ -142,7 +160,8 @@ vect<T> vect<T>::operator- (const T t)
     return sum_c;
 }
 
-template<class T>
+
+template<typename T>
 vect<T> vect<T>::operator* (const T t)
 {
     vect<T> k_vect(*this);
@@ -151,7 +170,8 @@ vect<T> vect<T>::operator* (const T t)
     return k_vect;
 }
 
-template<class T>
+
+template<typename T>
 vect<T>& vect<T>::operator= (const vect<T>& v)
 {
     if (*this == v)
@@ -170,7 +190,8 @@ vect<T>& vect<T>::operator= (const vect<T>& v)
     return *this;
 }
 
-template<class T>
+
+template<typename T>
 T& vect<T>::operator[] (int i)
 {
     if ((i < 0) || (i >= this->dim))
@@ -178,7 +199,8 @@ T& vect<T>::operator[] (int i)
     return this->coord[i];
 }
 
-template<class T>
+
+template<typename T>
 const T& vect<T>::operator[] (int i) const
 {
     if ((i < 0) || (i >= this->dim))
@@ -186,7 +208,8 @@ const T& vect<T>::operator[] (int i) const
     return this->coord[i];
 }
 
-template<class T>
+
+template<typename T>
 T vect<T>::vect_len() const
 {
     T vect_len = 0.0;
@@ -195,7 +218,8 @@ T vect<T>::vect_len() const
     return sqrt(vect_len);
 }
 
-template<class T>
+
+template<typename T>
 bool vect<T>::operator==(const vect<T>& v) const
 {
     if ((this->dim != v.dim) || (this->startindex != v.startindex))
@@ -207,17 +231,20 @@ bool vect<T>::operator==(const vect<T>& v) const
     return true;
 }
 
-template<class T>
+
+template<typename T>
 bool vect<T>::operator!=(const vect<T>& v) const
 {
     return (!(*this == v));
 }
+
 
 template<typename T>
 int vect<T>::get_dim() const
 {
     return this->dim;
 }
+
 
 template<typename T>
 int vect<T>::get_startindex() const
