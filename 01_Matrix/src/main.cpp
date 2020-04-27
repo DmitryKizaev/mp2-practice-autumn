@@ -283,7 +283,7 @@ void main()
     cout << endl << "test 9 successful" << endl << endl;
 
 
-    // конструктор копирования
+    // конструктор копирования и оператор присваивания
 
     cout << "test 10" << endl << "A = B" << endl;
     cout << "size A = ";
@@ -295,5 +295,33 @@ void main()
     cout << endl << "Check A:" << endl << endl << A << endl;
 
     B = mat<double>(A);
-    cout << endl << "this is B(A):" << endl << endl << B;
+    cout << endl << "this is B(A):" << endl << endl << B << endl;
+
+    // конструктор приведения типов
+
+    cout << endl << "test 11" << endl << "vect<vect> => mat" << endl;
+    cout << "enter v1 (len 3)" << endl;
+    vect<double> V1 (3);
+    cin >> V1;
+    
+    cout << "enter v2 (len 2)" << endl;
+    vect<double> V2 (2, 1);
+    cin >> V2;
+
+    cout << "enter v3 (len 1)" << endl;
+    vect<double> V3 (1, 2);
+    cin >> V3;
+
+    cout << "V made of v1, v2, v3:" << endl;
+    vect <vect <double> > V_of_V (3);
+    V_of_V[0] = V1;
+    V_of_V[1] = V2;
+    V_of_V[2] = V3;
+    cout << endl << "Check V1:" << endl << endl << V1 << endl;
+    cout << endl << "Check V2:" << endl << endl << V2 << endl;
+    cout << endl << "Check V3:" << endl << endl << V3 << endl;
+
+    cout << "matrix A = V" << endl;
+    A = mat<double>(V_of_V);
+    cout << endl << "this is A(V):" << endl << endl << A;
 }
