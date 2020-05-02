@@ -1,40 +1,26 @@
 #pragma once
-#include <string>
-using namespace std;
+#include "stack.h"
+#include <iostream>
 
-class variables;
+using namespace std;
 
 class postfix
 {
+private:
+    static bool check_sign(char c);
+    static bool check_correct(string s);
+    static bool check_const(string symbols);
+
+    static double calc_step(string tmp, double a, double b);
+    static double convert_const_v1(string symbols);
+    static double convert_const_v2(string symbols);
+
+    static double get_value(string variable, string* keys, double* values);
+    static int get_priority(string symb);
+    static void push_sign(string sign, stack<string>& operators, stack<string>& result);
+
 public:
-		// методы для преобразования инфиксной формы в постфиксную:
-		static bool is_operator(char c);
-		static bool is_operator(string s);
-
-		static bool is_l_bracket(char c);
-		static bool is_l_bracket(string s);
-
-		static bool is_r_bracket(char c);
-		static bool is_r_bracket(string s);
-
-		static bool is_number(char c);
-		static bool is_number(string s);
-
-		static bool is_letter(char c);
-		static bool is_letter(string s);
-		
-		static int check_priority(string s);
-
-		// получение из строки переменных и чисел целиком:
-		static string recognize_number(string s);
-		static string recognize_variable(string s);
-
-		// проверки на правильность
-		static bool check_correct(string s); // проверка строки на правильность расстановки скобок
-		static int check_correct_postfix(string s); // возвр. кол-во переменных
-
-		// основной функционал
-		static string convert_to_postfix(string s);
-		static double calculate(string s, variables& handler);
-		
+    static string convert_to_postfix(string s);
+    static void set_values(string s_postfix, string*& keys, double*& values, int* num);
+    static double calc_all(string s_postfix, string* keys, double* values);
 };
