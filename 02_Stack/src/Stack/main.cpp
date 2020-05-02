@@ -1,32 +1,38 @@
-#include "postfix.h"
+#pragma once
 #include <iostream>
 #include <string>
+#include "stack.h"
+#include "postfix.h"
+#include "variables.h"
 
 using namespace std;
 
-void main()
+int main()
 {
-    string input, converted;
-    cout << "Enter expression: " << endl;
-    getline(std::cin, input);
-    try
+    while (true)
     {
-        converted = postfix::convert_to_postfix(input);
-        cout << "Postfix form: " << endl << converted << endl;
-
-        string* keys;
-        double* values;
-        int num;
-
-        postfix::set_values(converted, keys, values, &num);
-        cout << "Result: " << endl << postfix::calc_all(converted, keys, values) << endl;
-        delete[] values;
-        delete[] keys;
+        string input, converted;
+        cout << "Enter expression: " << endl;
+        getline(std::cin, input); // считываем всё вместе с пробелами, до конца строки
+        try
+        {
+            converted = postfix::convert_to_postfix(input);
+            cout << "Postfix form: " << endl << converted << endl;
+            int var_num = postfix::check_correct_postfix(converted);
+            variables handler(var_num);
+            if (var_num > 0)
+            {
+                handler.register_variables(converted);
+                handler.enter_var_values();
+            }
+            double final_value = postfix::calculate(converted, handler);
+            cout << "Result:" << endl << final_value << endl;
+        }
+        catch (const char* err_code)
+        {
+            cout << err_code << endl;
+        }
+        cout << "-----------------------------------------------" << endl;
     }
-    catch (const char* err_code)
-    {
-        cout << err_code << endl;
-    }
-    cout << endl;
-    system("pause");
+    return 0;
 }
