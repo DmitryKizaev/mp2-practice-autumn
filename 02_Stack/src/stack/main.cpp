@@ -1,37 +1,87 @@
 #pragma once
+
+#include <locale.h>
 #include <iostream>
 #include <string>
+
+#include "input.h"
 #include "stack.h"
 #include "postfix.h"
 #include "variables.h"
 
 using namespace std;
 
+// режим работы программы
+const int CALCULATE = 1; // калькулятор или конвертер
+const int CHOICE = 1; // 1 для проверки всех режимов работы, 0 только для обычного
+
 int main()
 {
+    setlocale(LC_ALL, "Russian");
     while (true)
     {
+        int mode = CHOICE;
+
+        while ((mode != 1) && (mode != 2))
+        {
+            cout << "Enter mode: " << endl;
+            cout << "1 - convert & calculate infix expression " << endl;
+            cout << "2 - calculate premade postfix expression " << endl;
+            userproof_input(mode);
+        }
+                
         string input, converted;
-        cout << "Enter expression: " << endl;
-        getline(std::cin, input); // считываем всё вместе с пробелами, до конца строки
-        try
+
+        if (mode == 1)
         {
-            converted = postfix::convert_to_postfix(input);
-            cout << "Postfix form: " << endl << converted << endl;
-            int var_num = postfix::check_correct_postfix(converted);
-            variables handler(var_num);
-            if (var_num > 0)
+            cout << "Enter infix expression: " << endl;
+            getline(cin, input); // считываем всё вместе с пробелами, до конца строки
+            try
             {
-                handler.register_variables(converted);
-                handler.enter_var_values();
+                converted = postfix::convert_to_postfix(input);
+                cout << "Postfix form: " << endl << converted << endl;
+                if (CALCULATE)
+                {
+                    int var_num = postfix::check_correct_postfix(converted);
+                    variables handler(var_num);
+                    if (var_num > 0)
+                    {
+                        handler.register_variables(converted);
+                        handler.enter_var_values();
+                    }
+                    double final_value = postfix::calculate(converted, handler);
+                    cout << "Result:" << endl << final_value << endl;
+                }
             }
-            double final_value = postfix::calculate(converted, handler);
-            cout << "Result:" << endl << final_value << endl;
+            catch (const char* err_code)
+            {
+                cout << err_code << endl;
+            }
         }
-        catch (const char* err_code)
+
+        if (mode == 2)
         {
-            cout << err_code << endl;
+            cout << "Enter premade postfix expression: " << endl;
+            getline(cin, converted);
+
+            try
+            {
+                int var_num = postfix::check_correct_postfix(converted);
+                variables handler(var_num);
+                if (var_num > 0)
+                {
+                    handler.register_variables(converted);
+                    handler.enter_var_values();
+                }
+                double final_value = postfix::calculate(converted, handler);
+                cout << "Result:" << endl << final_value << endl;
+            }
+            catch (const char* err_code)
+            {
+                cout << err_code << endl;
+            }
         }
+
         cout << "-----------------------------------------------" << endl;
     }
     return 0;

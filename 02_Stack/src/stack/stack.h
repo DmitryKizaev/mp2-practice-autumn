@@ -15,9 +15,9 @@ public:
     stack(const stack<T>& s);
     ~stack();
 
-    T pop(); // достать верхний элемент
-    T peek() const; // посмотреть верхний элемент
-    void push(T new_el); // вставка
+    T pop();
+    T peek() const;
+    void push(T new_el); 
     bool is_full() const;
     bool is_empty() const;
     stack<T>& invert_stack();
@@ -44,7 +44,6 @@ stack<T>::stack(int max_size)
     size = max_size;
     top = 0;
     elems = new T[size];
-    // cout << "stack created size: " << size << endl;
 };
 
 template <typename T>
@@ -62,7 +61,7 @@ stack<T>::~stack()
 {
     size = 0;
     top = 0;
-    delete[] elems; // освобождаем не только указатель, а весь массив
+    delete[] elems;
 };
 
 // методы
