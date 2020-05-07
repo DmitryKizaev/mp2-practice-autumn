@@ -36,7 +36,7 @@ public:
     };
 };
 
-// конструкторы и деструкторы
+// constructors & destructors
 
 template <typename T>
 stack<T>::stack(int max_size)
@@ -64,7 +64,7 @@ stack<T>::~stack()
     delete[] elems;
 };
 
-// методы
+// methods
 
 template <typename T>
 void stack<T>::push(T new_el)

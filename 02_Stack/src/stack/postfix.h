@@ -7,7 +7,7 @@ class variables;
 class postfix
 {
 public:
-        // посимвольный разбор строки
+        // exploring string symbol-by-symbol
         static bool is_operator(char c);
         static bool is_operator(string s);
 
@@ -23,17 +23,17 @@ public:
         static bool is_letter(char c);
         static bool is_letter(string s);
         
-        // получение из строки переменных и чисел целиком:
+        // getting whole numbers and variable names
         static string recognize_number(string s);
         static string recognize_variable(string s);
 
         static int check_priority(string s);
 
-        // проверки на правильность
+        // checks
         static bool check_brackets(string s);
-        static int check_correct_postfix(string s); // возвр. кол-во переменных
+        static int check_correct_postfix(string s); // returns number of variables in expression
 
-        // основной функционал
+        // the two main static functions from task
         static string convert_to_postfix(string s);
         static double calculate(string s, variables& handler);
         

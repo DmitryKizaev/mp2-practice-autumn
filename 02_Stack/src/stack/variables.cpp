@@ -6,7 +6,7 @@
 
 variables::variables(int var_limit)
 {
-    this->var_used = 0; // счетчик использованных переменных
+    this->var_used = 0;
     this->array = new var[var_limit];
 }
 
@@ -28,12 +28,12 @@ var variables::get_var(int i)
         return this->array[i];
 }
 
-// сбор из строки имен переменных
+// getting variable names from a string
 void variables::register_variables(string s)
 {
     while (true)
     {
-        // пришел операнд-переменная:
+        // got operand-variable:
         if (postfix::is_letter(s))
         {
             string x = postfix::recognize_variable(s);
@@ -43,7 +43,7 @@ void variables::register_variables(string s)
                 if (x == this->array[i].var_name)
                 {
                     exists = true;
-                    break; // уже встречалась
+                    break; // variable is already registered
                 }
             }
             if (exists == false)
@@ -54,7 +54,7 @@ void variables::register_variables(string s)
             s = s.substr(x.length());
         }
         else
-            // не интересный нам символ, убираем
+            // not interested in other cases and symbols
             if (s != "")
             {
                 s = s.substr(1);
@@ -63,7 +63,7 @@ void variables::register_variables(string s)
     }
 };
 
-// ввод значений
+// input of user values for variables
 void variables::enter_var_values()
 {
     for (int i = 0; i < this->var_used; i++)

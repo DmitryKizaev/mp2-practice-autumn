@@ -3,7 +3,7 @@
 #include "variables.h"
 #include "postfix.h"
 
-// посимвольный разбор строк: определение типа объекта
+// inspecting type of next object in infix string, based on its first symbol
 
 bool postfix::is_operator(char c)
 {
@@ -58,7 +58,7 @@ bool postfix::is_letter(string s)
 string postfix::recognize_number(string s)
 {
     string number = "";
-    // достаем число
+    // getting the whole number
     for (int i = 0; i < int(s.length()); i++)
     {
         if (isdigit(s[i]) || s[i] == '.')
@@ -76,7 +76,7 @@ string postfix::recognize_variable(string s)
     string name = "";
     for (int i = 0; i < int(s.length()); i++)
     {
-        // собираем имя переменной
+        // getting the whole variable
         if ((is_operator(s[i])) or (s[i] == ' ') or (is_r_bracket(s[i])))
             break;
         else if (is_l_bracket(s[i]))
@@ -89,7 +89,7 @@ string postfix::recognize_variable(string s)
     return name;
 }
 
-// проверки
+// checks
 
 int postfix::check_priority(string s)
 {
@@ -134,20 +134,20 @@ int postfix::check_correct_postfix(string s)
     int variables = 0;
     while (true)
     {
-        // Пришёл пробел: убираем
+        // got space: ignore
         if (s[0] == ' ')
         {
             s = s.substr(1);
         }
         else
-            // Пришел оператор: считаем
+            // got sign: count
             if (is_operator(s))
             {
                 operators += 1;
                 s = s.substr(1);
             }
             else
-                // Пришел операнд-число: считаем
+                // got operand-number: recognize, count
                 if (is_number(s))
                 {
                     string num = recognize_number(s);
@@ -155,7 +155,7 @@ int postfix::check_correct_postfix(string s)
                     numbers += 1;
                 }
                 else
-                    // Пришел операнд-переменная:
+                    // got operand-variable: recognize, count
                     if (is_letter(s))
                     {
                         string x = recognize_variable(s);
@@ -163,13 +163,13 @@ int postfix::check_correct_postfix(string s)
                         variables += 1;
                     }
                     else
-                        // Пришла скобка: ошибка
+                        // got bracket: mistake
                         if (is_l_bracket(s) || is_r_bracket(s))
                         {
                             throw "incorrect postfix string: brackets found";
                         }
                         else
-                            // Ничего не сработало - мусор, ошибка
+                            // got something else - mistake
                             if (s != "")
                             {
                                 throw "error: unexpected symbols";
@@ -197,15 +197,16 @@ string postfix::convert_to_postfix(string s)
 
     while (true)
     {
-        // Пришёл пробел: частый случай, просто убираем
+        // got space: ignore
         if (s[0] == ' ')
         {
             s = s.substr(1);
         }
         else
-            // Пришел оператор: смотрим приоритет операции на вершине стека операторов
-            // Перекладываем все операции приоритетнее нашей в стек результатов
-            // Помещаем нашу операцию в стек операторов
+            // got operator:
+            // 1. Get priority of element on top of 'operators' stack
+            // 2. Move everything with same or higher priority to 'results' stack
+            // 3. Put our current operation to 'operators' stack
             if (is_operator(s))
             {
                 if (before_was_sign == true)
@@ -222,24 +223,25 @@ string postfix::convert_to_postfix(string s)
                 }
                 operators.push(found);
                 s = s.substr(1);
-                before_was_operand = false; // за последний вызов (этот) мы нашли оператор
+                before_was_operand = false; // last time (this one) we got operator
                 before_was_sign = true;
                 signs++;
             }
             else
-                // Пришла открывающая скобка: помещаем в стек операторов
+                // got left bracket: push to 'operators' stack
                 if (is_l_bracket(s))
                 {
                     string found = "";
                     found += s[0];
                     operators.push(found);
                     s = s.substr(1);
-                    before_was_operand = false; // за последний вызов (этот) мы нашли скобку
+                    before_was_operand = false; // last time (this one) we got bracket
                     before_was_sign = false;
                 }
                 else
-                    // Пришла закрывающая скобка:
-                    // Перемещаем все из стека операторов в стек результатов, пока не встретим "(", ее удаляем
+                    // got right bracket:
+                    // 1. Move each element from 'operators' stack to 'results' stack until we get left bracket
+                    // 2. Delete left bracket
                     if (is_r_bracket(s))
                     {
                         while (!(is_l_bracket(operators.peek())))
@@ -248,12 +250,12 @@ string postfix::convert_to_postfix(string s)
                         };
                         string dummy = operators.pop();
                         s = s.substr(1);
-                        before_was_operand = false; // за последний вызов (этот) мы нашли скобку
+                        before_was_operand = false; // last time (this one) we got bracket
                         before_was_sign = false;
                     }
                     else
-                        // Пришел операнд-число:
-                        // Преобразуем из строки в число, помещаем в стек результатов
+                        // got operand-number:
+                        // push to 'results' stack
                         if (is_number(s))
                         {
                             if (before_was_operand == true)
@@ -261,12 +263,13 @@ string postfix::convert_to_postfix(string s)
                             string num = recognize_number(s);
                             results.push(num);
                             s = s.substr(num.length());
-                            before_was_operand = true; // нашли операнд-число
+                            before_was_operand = true; // last time (this one) we got operand-number
                             before_was_sign = false;
                             operands++;
                         }
                         else
-                            // Пришел операнд - переменная:
+                            // got operand-variable:
+                            // push to 'results' stack
                             if (is_letter(s))
                             {
                                 if (before_was_operand == true)
@@ -274,19 +277,20 @@ string postfix::convert_to_postfix(string s)
                                 string x = recognize_variable(s);
                                 results.push(x);
                                 s = s.substr(x.length());
-                                before_was_operand = true; // нашли операнд-переменную
+                                before_was_operand = true; // last time (this one) we got operand-variable
                                 before_was_sign = false;
                                 operands++;
                             }
                             else
-                            // Другие варианты:
-                                // Плохой
+                            // otherwise:
+                                // bad situation
                                 if (s != "")
                                 {
                                     throw "error: unexpected symbols";
                                 }
                                 else
-                                // Хороший. Конец строки: перекладываем из стека в стек
+                                // good situation: eof
+                                // move everything left in 'operators' to 'results'
                                 {
                                     while (!operators.is_empty())
                                         results.push(operators.pop());
@@ -305,18 +309,19 @@ string postfix::convert_to_postfix(string s)
 }
 
 double postfix::calculate(string s, variables& handler)
-// на вход - строка в постфиксной форме, пробелы допустимы
+// receives string in postfix form, spaces are allowed
 {
     stack <double> num_stack;
     while (true)
     {
-        // Пришёл пробел: просто убираем
+        // got space: ignore
         if (s[0] == ' ')
         {
             s = s.substr(1);
         }
         else
-            // Пришел оператор: достаем из стека 2 последних значения, совершаем операцию, кладем в стек
+            // got operator:
+            // pop 2 values from 'num_stack', calculate, push result back
             if (is_operator(s))
             {
                 if (num_stack.is_empty())
@@ -355,8 +360,8 @@ double postfix::calculate(string s, variables& handler)
                 s = s.substr(1);
             }
             else
-                // Пришел операнд-число:
-                // Преобразуем из строки в число, помещаем в стек
+                // got operand-number:
+                // convert from string to double, push into stack
                 if (is_number(s))
                 {
                     string num_s = recognize_number(s);
@@ -365,8 +370,8 @@ double postfix::calculate(string s, variables& handler)
                     s = s.substr(num_s.length());
                 }
                 else
-                    // Пришел операнд - переменная:
-                    // Находим значение, помещаем в стек
+                    // got operand-variable:
+                    // find its value in 'handler', push into stack
                     if (is_letter(s))
                     {
                         string x = recognize_variable(s);

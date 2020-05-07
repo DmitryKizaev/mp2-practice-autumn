@@ -11,9 +11,9 @@
 
 using namespace std;
 
-// режим работы программы
-const int CALCULATE = 1; // калькулятор или конвертер
-const int CHOICE = 1; // 1 для проверки всех режимов работы, 0 только для обычного
+// program mode
+const int CALCULATE = 1; // calculator OR converter
+const int CHOICE = 1; // 1 to test all modes, 0 for standard mode
 
 int main()
 {
@@ -35,7 +35,7 @@ int main()
         if (mode == 1)
         {
             cout << "Enter infix expression: " << endl;
-            getline(cin, input); // считываем всё вместе с пробелами, до конца строки
+            getline(cin, input); // getting full line with spaces
             try
             {
                 converted = postfix::convert_to_postfix(input);

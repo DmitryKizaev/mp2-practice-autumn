@@ -13,8 +13,8 @@ struct var
 class variables
 {
 private:
-    int var_used; // счетчик использованных переменных
-    var* array; // массив структур "имя-значение"
+    int var_used; // number of currently used variables
+    var* array;
 
 public:
     variables(int var_limit = 10);
@@ -26,5 +26,5 @@ public:
     void register_variables(string postfix);
     void enter_var_values();
 
-    friend class postfix; // пользуемся recognize
+    friend class postfix; // needed because use 'recognize' for finding var. names
 };
