@@ -5,57 +5,57 @@
 
 // inspecting type of next object in infix string, based on its first symbol
 
-bool postfix::is_operator(char c)
+bool postfix::is_operator(const char c)
 {
     return ((c == '+') || (c == '-') || (c == '*') || (c == '/'));
 };
 
-bool postfix::is_operator(string s)
+bool postfix::is_operator(const string s)
 {
     return is_operator(s[0]);
 };
 
-bool postfix::is_l_bracket(char c)
+bool postfix::is_l_bracket(const char c)
 {
     return (c == '(');
 };
 
-bool postfix::is_l_bracket(string s)
+bool postfix::is_l_bracket(const string s)
 {
     return is_l_bracket(s[0]);
 };
 
-bool postfix::is_r_bracket(char c)
+bool postfix::is_r_bracket(const char c)
 {
     return (c == ')');
 };
 
-bool postfix::is_r_bracket(string s)
+bool postfix::is_r_bracket(const string s)
 {
     return is_r_bracket(s[0]);
 };
 
-bool postfix::is_number(char c)
+bool postfix::is_number(const char c)
 {
     return (isdigit(c));
 };
 
-bool postfix::is_number(string s)
+bool postfix::is_number(const string s)
 {
     return (isdigit(char(s[0])));
 };
 
-bool postfix::is_letter(char c)
+bool postfix::is_letter(const char c)
 {
     return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
 }
 
-bool postfix::is_letter(string s)
+bool postfix::is_letter(const string s)
 {
     return (s[0] >= 'a' && s[0] <= 'z') || (s[0] >= 'A' && s[0] <= 'Z');
 }
 
-string postfix::recognize_number(string s)
+string postfix::recognize_number(const string s)
 {
     string number = "";
     // getting the whole number
@@ -71,7 +71,7 @@ string postfix::recognize_number(string s)
     return (number);
 };
 
-string postfix::recognize_variable(string s)
+string postfix::recognize_variable(const string s)
 {
     string name = "";
     for (int i = 0; i < int(s.length()); i++)
@@ -91,7 +91,7 @@ string postfix::recognize_variable(string s)
 
 // checks
 
-int postfix::check_priority(string s)
+int postfix::check_priority(const string s)
 {
     char c = s[0];
 
@@ -109,7 +109,7 @@ int postfix::check_priority(string s)
         return 0;
 };
 
-bool postfix::check_brackets(string s)
+bool postfix::check_brackets(const string s)
 {
     int lefts = 0, rights = 0;
 

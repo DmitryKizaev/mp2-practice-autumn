@@ -8,29 +8,29 @@ class postfix
 {
 public:
         // exploring string symbol-by-symbol
-        static bool is_operator(char c);
-        static bool is_operator(string s);
+        static bool is_operator(const char c);
+        static bool is_operator(const string s);
 
-        static bool is_l_bracket(char c);
-        static bool is_l_bracket(string s);
+        static bool is_l_bracket(const char c);
+        static bool is_l_bracket(const string s);
 
-        static bool is_r_bracket(char c);
-        static bool is_r_bracket(string s);
+        static bool is_r_bracket(const char c);
+        static bool is_r_bracket(const string s);
 
-        static bool is_number(char c);
-        static bool is_number(string s);
+        static bool is_number(const char c);
+        static bool is_number(const string s);
 
-        static bool is_letter(char c);
-        static bool is_letter(string s);
+        static bool is_letter(const char c);
+        static bool is_letter(const string s);
         
         // getting whole numbers and variable names
-        static string recognize_number(string s);
-        static string recognize_variable(string s);
+        static string recognize_number(const string s);
+        static string recognize_variable(const string s);
 
-        static int check_priority(string s);
+        static int check_priority(const string s);
 
         // checks
-        static bool check_brackets(string s);
+        static bool check_brackets(const string s);
         static int check_correct_postfix(string s); // returns number of variables in expression
 
         // the two main static functions from task
