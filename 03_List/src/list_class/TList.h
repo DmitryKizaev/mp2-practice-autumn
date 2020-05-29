@@ -282,15 +282,6 @@ TNode<TKey, TData>* TList<TKey, TData>::find_key(const TKey _key)
 template<typename TKey, typename TData>
 void TList<TKey, TData>::remove_head()
 {
-	if (p_first)
-		cout << "first" << p_first->key << endl;
-	if (p_previous) 
-		cout << "previous " << p_previous->key << endl;
-	if (p_current) 
-		cout << "current " << p_current->key << endl;
-	if (p_next)
-		cout << "next " << p_next->key << endl;
-
 	if (p_first == p_current)
 	{
 		p_current = p_next;
@@ -349,8 +340,6 @@ void TList<TKey, TData>::remove_key(TKey _key)
 		p_current = p_previous;
 		p_previous = p_saved_prev;
 		p_next = p_current->p_next;
-		cout << "v" << *p_victim << endl;
-		cout << "c" << *p_current << endl;
 		delete p_victim;
 		return;
 	}
