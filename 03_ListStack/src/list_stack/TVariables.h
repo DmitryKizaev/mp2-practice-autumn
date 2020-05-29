@@ -23,7 +23,7 @@ public:
     int get_var_used();
     var get_var(int i);
 
-    void register_variables(string postfix);
+    void register_variables(const string& postfix);
     void enter_var_values();
 
     friend class TPostfix; // needed because we use 'recognize' for finding variable names

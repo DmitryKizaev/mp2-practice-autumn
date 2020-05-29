@@ -29,12 +29,13 @@ var TVariables::get_var(int i)
 }
 
 // getting variable names from a string
-void TVariables::register_variables(string s)
+void TVariables::register_variables(const string& _s)
 {
+    string s = _s;
     while (true)
     {
         // got operand-variable:
-        if (TPostfix::is_letter(s))
+        if (TPostfix::is_letter(s[0]))
         {
             string x = TPostfix::recognize_variable(s);
             bool exists = false;
