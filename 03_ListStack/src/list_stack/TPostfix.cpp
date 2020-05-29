@@ -284,13 +284,11 @@ string TPostfix::convert_to_postfix(const string& _s)
     string result = "";
 
     while (!(*p_results).is_empty())
-    {
-        result += (*p_results).pop() + " ";
-    }
+        (*p_operators).push((*p_results).pop());
 
-    for (unsigned i = 0; i < result.length() / 2; i++)
-        swap(result[i], result[result.length() - 1 - i]);
-
+    while (!(*p_operators).is_empty())
+        result += (*p_operators).pop() + " ";
+   
     delete p_results;
     delete p_operators;
     return result;
