@@ -7,7 +7,6 @@
 #include "TStack_on_lists.h"
 
 bool TPostfix::use_array_stack;
-
 // inspecting type of next object in infix string, based on its first symbol
 
 bool TPostfix::is_operator(const char& c)
@@ -282,6 +281,9 @@ string TPostfix::convert_to_postfix(const string& _s)
     if (operands != signs + 1)
         throw "error: incorrect number of operands & operators";
     string result = "";
+
+    if (TPostfix::use_array_stack == true)
+        cout << "Highest stack usage: " << p_operators->get_usage() << endl;
 
     while (!(*p_results).is_empty())
         (*p_operators).push((*p_results).pop());

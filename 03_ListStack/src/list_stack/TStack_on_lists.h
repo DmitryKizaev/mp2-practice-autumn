@@ -21,6 +21,8 @@ public:
     void push(T new_el);
     bool is_full() const;
     bool is_empty() const;
+
+    int get_usage() const;
 };
 
 template<typename T>
@@ -79,3 +81,10 @@ bool TStack_on_lists<T>::is_full() const
 {
     return false;
 }
+
+template <typename T>
+int TStack_on_lists<T>::get_usage() const
+{
+    cout << "Max usage supported only for array stack" << endl;
+    return -1;
+};
